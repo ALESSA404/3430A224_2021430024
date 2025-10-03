@@ -15,10 +15,10 @@ struct Nodo {
     Nodo* siguiente;
 };
 
-// Se crea la función "universitario", que inserta un nuevo estudiante al final de la cola.
+// Se crea la función "encolar", que inserta un nuevo estudiante al final de la cola.
 // También se consideran los parámetros inicio, fin, y los datos del estudiante a insertar.
 
-void universitario(Nodo*& inicio, Nodo*& fin, string nombre, string carrera, float promedio) {
+void encolar(Nodo*& inicio, Nodo*& fin, string nombre, string carrera, float promedio) {
 
     //Creación de un nuevo Nodo, donde asignamos datos y lo consideramos como el último de la cola.
     Nodo* nuevo = new Nodo();         // se crea un nuevo nodo dinámicamente
@@ -135,7 +135,7 @@ int main() {
                 cout << "Promedio: ";
                 cin >> promedio;
                 cin.ignore();
-                universitario(inicio, fin, nombre, carrera, promedio);
+                encolar(inicio, fin, nombre, carrera, promedio);
                 break;
             case 2:
                 if (desencolar(inicio, fin, nombre, carrera, promedio)) {
