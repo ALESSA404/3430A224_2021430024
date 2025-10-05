@@ -6,7 +6,10 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <cstdlib> 
+#include <cstdlib>
+#include <algorithm>
+#include <cctype>
+#include <vector>
 
 // Se crea la estructura Nodo para la lista dinámica, donde cada uno representa un residuo de aminoácido
 // Consideramos que resn es el nombre del residuo (ej: MET) y resid es su identificador (ej: 1)
@@ -15,6 +18,15 @@ struct Nodo {
     std::string resid;
     Nodo* siguiente;
 };
+
+// Función para eliminar espacios en blanco al inicio y al final de una cadena.
+static inline std::string trim(const std::string& s) {
+    size_t start = 0;
+    while (start < s.size() && std::isspace(static_cast<unsigned char>(s[start]))) start++;
+    size_t end = s.size();
+    while (end > start && std::isspace(static_cast<unsigned char>(s[end-1]))) end--;
+    return s.substr(start, end - start);
+}
 
 // Insertar un nuevo residuo al final de la lista dinámica.
 void insertarFinal(Nodo*& cabeza, const std::string& resn, const std::string& resid) {
@@ -72,7 +84,8 @@ void eliminarNodo(Nodo*& cabeza, int posicion) {
 void mostrarLista(Nodo* cabeza) {
     Nodo* temp = cabeza;
     while (temp) {
-        std::cout << temp->resn << temp->resid << " -> ";  // Se mostrará resn y resid juntos
+        // Mostramos resn y resid juntos (ej: MET1)
+        std::cout << temp->resn << temp->resid << " -> ";
         temp = temp->siguiente;
     }
     std::cout << "NULL\n";  // NULL nos indicará que estamos en el final de la lista.
@@ -80,6 +93,11 @@ void mostrarLista(Nodo* cabeza) {
 
 // Se crea la función exportarGraphviz para exportar la lista a Graphviz de forma automática.
 void exportarGraphviz(Nodo* cabeza, const std::string& nombreArchivoDot, const std::string& nombreArchivoPng) {
+    if (!cabeza) {
+        std::cout << "- Lista vacía: nada que exportar.\n";
+        return;
+    }
+
     std::ofstream outfile(nombreArchivoDot);
     if (!outfile.is_open()) {
         std::cerr << "No se pudo crear el archivo: " << nombreArchivoDot << "\n";
@@ -88,21 +106,35 @@ void exportarGraphviz(Nodo* cabeza, const std::string& nombreArchivoDot, const s
 
     // Encabezado de Graphviz, configuración de estilo y dirección del grafo.
     outfile << "digraph G {\n";
-    outfile << "rankdir=LR;\n";  // Grafo de izquierda a derecha
-    outfile << "node [style=filled, fillcolor=pink];\n"; // Color de los nodos
+    outfile << "  rankdir=LR;\n";  // Grafo de izquierda a derecha
+    outfile << "  graph [nodesep=0.6, ranksep=0.7];\n";
+    outfile << "  node [shape=oval, style=filled, fillcolor=pink, color=black, fontcolor=black];\n\n";
 
-    // Agregar nodos y conexiones a Graphviz, mostrando resn y resid juntos.
+    // Agregar nodos con etiquetas (resn + resid), asegurando que no haya espacios en blanco.
     Nodo* temp = cabeza;
-    while (temp && temp->siguiente) {
-        outfile << temp->resn << temp->resid << " -> "
-                << temp->siguiente->resn << temp->siguiente->resid << ";\n";
+    int index = 0;
+    std::vector<std::string> ids;
+    while (temp) {
+        std::string id = "n" + std::to_string(index);
+        std::string label = trim(temp->resn) + trim(temp->resid); // ej: "MET1"
+        // Evitamos comillas dobles en label (se reemplazarán por comillas simples si existieran)
+        for (char &c : label) if (c == '"') c = '\'';
+        outfile << "  " << id << " [label=\"" << label << "\"];\n";
+        ids.push_back(id);
         temp = temp->siguiente;
+        index++;
+    }
+
+    // Se agregan aristas en orden lineal, conectando cada nodo con el siguiente.
+    outfile << "\n  // Aristas (orden lineal)\n";
+    for (size_t i = 0; i + 1 < ids.size(); ++i) {
+        outfile << "  " << ids[i] << " -> " << ids[i+1] << ";\n";
     }
 
     outfile << "}\n"; // Cierre del grafo.
     outfile.close();
 
-    // Ejecutar comando del sistema para generar imagen .png
+    // Se ejecuta el comando del sistema para generar imagen .png
     std::string comando = "dot -Tpng " + nombreArchivoDot + " -o " + nombreArchivoPng;
     if (system(comando.c_str()) == 0)
         std::cout << "- Imagen Graphviz generada: " << nombreArchivoPng << "\n";
@@ -120,9 +152,10 @@ void cargarDesdeArchivo(Nodo*& cabeza, const std::string& nombreArchivo) {
 
     std::string line;
     while (std::getline(infile, line)) {
-        if (line.length() < 4) continue;          // Saltar líneas vacías o cortas
-        std::string resn = line.substr(0,3);      // Primeros 3 caracteres: resn
-        std::string resid = line.substr(3);       // Resto de la línea: resid
+        if (line.length() < 3) continue;          // Saltar líneas vacías o cortas
+        std::string resn = trim(line.substr(0,3));      // Primeros 3 caracteres: resn
+        std::string resid = trim(line.substr(3));       // Resto de la línea: resid
+        if (resn.empty() && resid.empty()) continue;
         insertarFinal(cabeza, resn, resid);      // Insertar en la lista
     }
 
@@ -146,13 +179,13 @@ void menu(Nodo*& cabeza) {
             std::string resn, resid;
             std::cout << "Ingrese resn: "; std::cin >> resn;
             std::cout << "Ingrese resid: "; std::cin >> resid;
-            insertarFinal(cabeza, resn, resid);
+            insertarFinal(cabeza, trim(resn), trim(resid));
         } 
         else if(opcion == 2){
             int pos; std::string nuevoResn;
             std::cout << "Posición a modificar: "; std::cin >> pos;
             std::cout << "Nuevo resn: "; std::cin >> nuevoResn;
-            modificarResn(cabeza, pos, nuevoResn);
+            modificarResn(cabeza, pos, trim(nuevoResn));
         } 
         else if(opcion == 3){
             int pos;
