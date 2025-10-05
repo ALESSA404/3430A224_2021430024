@@ -51,8 +51,7 @@ int main() {
 
     // Mostrar un texto prueba para saber si funciona bien el contador.
     std::string textoprueba = "Programacion";
-    std::cout << "La longitud del texto prueba \"" << textoprueba << "\" es de: " 
-              << longitudString(textoprueba) << std::endl;
+    std::cout << "La longitud del texto prueba \"" << textoprueba << "\" es de: " << longitudString(textoprueba) << std::endl;
 
     return 0;
 }
