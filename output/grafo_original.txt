@@ -1,0 +1,16 @@
+graph G {
+  node [style=filled fillcolor="#ffd6e7" shape=circle];
+  edge [color=gray penwidth=1.0];
+  a [label="a"];
+  b [label="b"];
+  c [label="c"];
+  d [label="d"];
+  e [label="e"];
+  a -- b [label="2"];
+  a -- c [label="4"];
+  b -- c [label="1"];
+  b -- d [label="7"];
+  c -- d [label="3"];
+  c -- e [label="5"];
+  d -- e [label="6"];
+}
