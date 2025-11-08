@@ -67,5 +67,5 @@ L = { a b c d e }
 ## Visualización con Graphviz
 
 El programa genera automáticamente dos archivos DOT y sus respectivas imágenes:
-- En el caso del "grafo_original.txt", este genera el 'grafo_original.png'
-- Y en el caso del "grafo_mst.tx", este genera el "grafo_mst.png"
+- En el caso del `grafo_original.txt`, este genera el `grafo_original.png`.
+- Y en el caso del `grafo_mst.tx", este genera el "grafo_mst.png`.
