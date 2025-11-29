@@ -1,0 +1,16 @@
+ 1017  tail -n 10 HEM.txt
+ 1018  grep -n --color=always "NUCLEOTIDE SEQUENCE" "HEM.txt"
+ 1019  grep -n --color=always "GO;" "HEM.txt"
+ 1020  grep -r --color=always "GO;" .
+ 1021  mv .GFP.txt GFP.txt
+ 1022  mv .ACE2.txt ACE2.txt
+ 1023  mv .borrar.txt borrar.txt
+ 1024  ls -l1
+ 1025  rm borrar.txt
+ 1026  ls -l1
+ 1027  history
+ 1028  fc -l > "mis_comandos.txt"
+ 1029  ls
+ 1030  rm mis_comandos.txt
+ 1031  ls
+ 1032  cd ..

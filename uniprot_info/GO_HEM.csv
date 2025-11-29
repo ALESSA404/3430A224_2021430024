@@ -1,0 +1,28 @@
+2172:DR   GO; GO:0072562; C:blood microparticle; HDA:UniProtKB.
+2173:DR   GO; GO:0005829; C:cytosol; TAS:Reactome.
+2174:DR   GO; GO:0071682; C:endocytic vesicle lumen; TAS:Reactome.
+2175:DR   GO; GO:0070062; C:extracellular exosome; HDA:UniProtKB.
+2176:DR   GO; GO:0005576; C:extracellular region; TAS:Reactome.
+2177:DR   GO; GO:0005615; C:extracellular space; IDA:UniProtKB.
+2178:DR   GO; GO:1904813; C:ficolin-1-rich granule lumen; TAS:Reactome.
+2179:DR   GO; GO:0031838; C:haptoglobin-hemoglobin complex; IDA:BHF-UCL.
+2180:DR   GO; GO:0005833; C:hemoglobin complex; IDA:BHF-UCL.
+2181:DR   GO; GO:1904724; C:tertiary granule lumen; TAS:Reactome.
+2182:DR   GO; GO:0020037; F:heme binding; IBA:GO_Central.
+2183:DR   GO; GO:0031721; F:hemoglobin alpha binding; IBA:GO_Central.
+2184:DR   GO; GO:0030492; F:hemoglobin binding; IDA:UniProtKB.
+2185:DR   GO; GO:0046872; F:metal ion binding; IEA:UniProtKB-KW.
+2186:DR   GO; GO:0043177; F:organic acid binding; IBA:GO_Central.
+2187:DR   GO; GO:0019825; F:oxygen binding; IDA:UniProtKB.
+2188:DR   GO; GO:0005344; F:oxygen carrier activity; IBA:GO_Central.
+2189:DR   GO; GO:0097746; P:blood vessel diameter maintenance; IEA:UniProtKB-KW.
+2190:DR   GO; GO:0015670; P:carbon dioxide transport; NAS:ComplexPortal.
+2191:DR   GO; GO:0098869; P:cellular oxidant detoxification; IEA:GOC.
+2192:DR   GO; GO:0042744; P:hydrogen peroxide catabolic process; IDA:BHF-UCL.
+2193:DR   GO; GO:0030185; P:nitric oxide transport; IDA:ComplexPortal.
+2194:DR   GO; GO:0015671; P:oxygen transport; IDA:ComplexPortal.
+2195:DR   GO; GO:0070527; P:platelet aggregation; HMP:UniProtKB.
+2196:DR   GO; GO:0045429; P:positive regulation of nitric oxide biosynthetic process; NAS:UniProtKB.
+2197:DR   GO; GO:0008217; P:regulation of blood pressure; IEA:UniProtKB-KW.
+2198:DR   GO; GO:0070293; P:renal absorption; IMP:UniProtKB.
+2199:DR   GO; GO:0042542; P:response to hydrogen peroxide; IDA:BHF-UCL.
