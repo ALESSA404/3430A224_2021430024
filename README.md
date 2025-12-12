@@ -1,6 +1,6 @@
 # Proyecto — Alineamiento Global de Secuencias (Needleman-Wunsch)
 
-## 👩‍💻 Autores
+## Autores
 
 **Nombre:** Ivonne Cancino y Gabriela Sepùlveda 
 **Asignatura:** Algoritmos y Estructura de Datos 
